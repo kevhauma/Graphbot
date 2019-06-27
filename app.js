@@ -4,6 +4,9 @@ const client = new Discord.Client()
 
 const handler = require("./handlers/eventHandler.js")
 
+
+
+
 client.on("ready", async() => {
     console.log(`active in ${client.guilds.size} servers`)
     //code to put post graph, have to be somewhere else
