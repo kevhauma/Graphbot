@@ -1,6 +1,6 @@
 const Datastore = require('nedb')
 let fs = require("fs")
-const types = require("../StatTypes.js")
+const types = require("../types/StatTypes.js").types
 let dbs = {}
 
 
@@ -8,25 +8,22 @@ let dbs = {}
 loadDatabases()
 
 
-async function get(guild, type) {
-    if (!types.includes(type.toLowerCase())) throw "type not found"
+async function get(guild, type) {    
     return await findDB(guild, type)
+}
+module.exports.get = get
 
-}
-module.exports = {
-    guilds: Object.keys(dbs),
-    get
-}
 
 function loadDatabases() {
     fs.readdir("./data/", async (err, folders) => {
         if (err) throw `error loading databases: ${err.mesages}`
+        
         for (let guild of folders) {
             for (let type of types) {
                 await findDB(guild, type)
             }
         }
-        console.log(dbs)
+        module.exports.guilds = Object.keys(dbs)
         console.log(`${Object.keys(dbs).length} databases have initialized`)
     })
 }

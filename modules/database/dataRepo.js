@@ -1,75 +1,40 @@
 let db = require("./dataStore.js")
+let typeCheck = require("../types/checkType.js")
+let types = require("../types/StatTypes.js").types
 
-
-async function getMessages(guild, options) {
-    return new Promise((res, rej) => {
-        let data = await db.get(guild,"messages")
-        let filter = {
-            $and: [{"timestamp": {$gte: options.from || 0}},
-                   {"timestamp": {$lte: options.to || Date.now()}}]         
+function get(guild,type, options) {
+    return new Promise(async(res, rej) => {
+        if (!types.includes(type.toLowerCase())) throw `type: ${type} not found`
+        let data = await db.get(guild,type)
+        let filter
+        if(!options)
+            filter = {}
+        else {            
+            filter = {
+                $and: [{"timestamp": {$gte: options.from || 0}},
+                       {"timestamp": {$lte: options.to || Date.now()}}]         
+            }
+            if(options.users)    filter.user = {$in: options.users}
+            if(options.channels) filter.channel = {$in: options.channels}
         }
-        if(options.user)    filter.user = options.user
-        if(options.channel) filter.channel = options.channel
-        
-        db.find(filter, (err, docs) => {
+        data.find(filter, (err, docs) => {
             if (err) rej(err)
             res(docs)
         })
     })
 }
-async function getBans(guild, options) {
-    return new Promise((res, rej) => {
-        let data = await db.get(guild,"bans")
-        let filter = {
-            $and: [{"timestamp": {$gte: options.from || 0}},
-                   {"timestamp": {$lte: options.to || Date.now()}}]         
-        }      
+
+function add(guild,type,object){
+    return new Promise(async(res, rej) => {
+        if (!types.includes(type.toLowerCase())) 
+                throw `type: ${type} not found`
+                
+        let data = await db.get(guild,type)
         
-        db.find(filter, (err, docs) => {
-            if (err) rej(err)
-            res(docs)
-        })
-    })
-}
-async function getReaction(guild, options) {
-    return new Promise((res, rej) => {
-        let data = await db.get(guild,"reactions")
-        let filter = {
-            $and: [{"timestamp": {$gte: options.from || 0}},
-                   {"timestamp": {$lte: options.to || Date.now()}}]         
-        }      
-        if(options.user)    filter.user = options.user
-        if(options.channel) filter.channel = options.channel
-        
-        db.find(filter, (err, docs) => {
-            if (err) rej(err)
-            res(docs)
-        })
-    })
-}
-async function getMembersTotal(guild, options) {
-    return new Promise((res, rej) => {
-        let data = await db.get(guild,"memberstotal")
-        let filter = {
-            $and: [{"timestamp": {$gte: options.from || 0}},
-                   {"timestamp": {$lte: options.to || Date.now()}}]         
-        }      
-        
-        db.find(filter, (err, docs) => {
-            if (err) rej(err)
-            res(docs)
-        })
-    })
-}
-async function getMembersJoined(guild, options) {
-    return new Promise((res, rej) => {
-        let data = await db.get(guild,"membersjoined")
-        let filter = {
-            $and: [{"timestamp": {$gte: options.from || 0}},
-                   {"timestamp": {$lte: options.to || Date.now()}}]         
-        }      
-        
-        db.find(filter, (err, docs) => {
+        if(typecheck(type,object)) 
+            throw `object doesn't match <${type}> template\n${object}`        
+    
+        data.insert(object,(err, docs) => {
             if (err) rej(err)
             res(docs)
         })
@@ -78,3 +43,9 @@ async function getMembersJoined(guild, options) {
 
 
 
+
+
+
+module.exports = {
+    get,add
+}

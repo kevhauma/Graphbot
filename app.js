@@ -1,37 +1,28 @@
-let Discord = require("discord.js")
+const Discord = require("discord.js")
 require('dotenv').config()
 const client = new Discord.Client()
 
-let channel;
+const handler = require("./handlers/eventHandler.js")
 
+client.on("ready", async() => {
+    console.log(`active in ${client.guilds.size} servers`)
+    //code to put post graph, have to be somewhere else
+    //        let gra = await graph.draw(data)
+    //    
+    //        let embed = em(g, {
+    //            title: "random data",
+    //            descr: "pls work"
+    //        })
+    //        await channel.send(embed);
+    //    
+    //        fs.unlinkSync(`./images/${g}`)
 
-//let graph = require("./modules/graph/drawGraph.js")
-//let em = require("./modules/graph/createEmbed.js")
-let db = require("./modules/database/dataStore.js")
-//
-//
+})
 
-//client.on("ready", async () => {
-//    channel = client.guilds.first().channels.array().find(c => c.name == "bot_testing")
-//    console.log(`active in ${client.guilds.size} servers`)
-//        let data = []
-//        for (let i = 0; i < 100; i++) {
-//            data.push({
-//                value: Math.random() * 20 - 10,
-//                key: i
-//            })
-//        }
-//    
-//        let gra = await graph.draw(data)
-//    
-//        let embed = em(g, {
-//            title: "random data",
-//            descr: "pls work"
-//        })
-//        await channel.send(embed);
-//    
-//        fs.unlinkSync(`./images/${g}`)
-//})
+client.on("message", handler.messsage)
+client.on("messageReactionAdd", handler.reaction)
+client.on("guildBanAdd", handler.ban)
+client.on("guildMemberAdd", handler.join)
+client.on("guildMemberRemove", handler.leave)
 
-
-client.login(process.env.DB_HOST)
+client.login(process.env.TOKEN)
