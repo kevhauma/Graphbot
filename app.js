@@ -1,5 +1,5 @@
 let Discord = require("discord.js")
-let env : require("config.json")
+require('dotenv').config()
 const client = new Discord.Client()
 
 let channel;
@@ -34,4 +34,4 @@ let db = require("./modules/database/dataStore.js")
 //})
 
 
-client.login(endv.token)
+client.login(process.env.DB_HOST)

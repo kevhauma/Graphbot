@@ -1,5 +1,5 @@
 node_modules/
 data/
-config.json
+.env
 selfbot.js
 package-lock.json
