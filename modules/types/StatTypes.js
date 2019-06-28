@@ -36,5 +36,5 @@ let templates = {
 
 module.exports = {
     types: Object.keys(templates).map(x => x.toLowerCase()),
-    templates: types
+    templates
 }

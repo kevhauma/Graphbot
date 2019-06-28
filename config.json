@@ -1,0 +1,8 @@
+{
+    "prefix": "!",
+    "defaultColor":"#ff0000",
+    "graphSize":{
+           "height": 300,
+           "width": 700
+    }
+}

@@ -2,12 +2,10 @@ const Discord = require("discord.js")
 require('dotenv').config()
 const client = new Discord.Client()
 
-const handler = require("./handlers/eventHandler.js")
+const handler = require("./modules/handlers/eventHandler.js")
+const er = require("./modules/graph/graph.js")
 
-
-
-
-client.on("ready", async() => {
+client.on("ready", () => {
     console.log(`active in ${client.guilds.size} servers`)
     //code to put post graph, have to be somewhere else
     //        let gra = await graph.draw(data)
@@ -22,10 +20,10 @@ client.on("ready", async() => {
 
 })
 
-client.on("message", handler.messsage)
-client.on("messageReactionAdd", handler.reaction)
-client.on("guildBanAdd", handler.ban)
-client.on("guildMemberAdd", handler.join)
-client.on("guildMemberRemove", handler.leave)
+client.on("message",           (message      ) => handler.messsage(message,client.user.id))
+client.on("messageReactionAdd",(reaction,user) => handler.reaction(reaction,user))
+client.on("guildBanAdd",       (guild,   user) => handler.ban(guild,user))
+client.on("guildMemberAdd",    (member       ) => handler.join(member))
+client.on("guildMemberRemove", (member       ) => handler.leave(member))
 
 client.login(process.env.TOKEN)

@@ -1,13 +1,10 @@
-let map = require("../map.js")
-let Chart = require("chart.js")
-let fs = require("fs")
-let Canvas = require("canvas")
-let size = {
-    height: 300,
-    width: 700,
-    minX: 40,
-    minY: 20
-}
+const Canvas = require('canvas')
+const fs = require("fs")
+const map = require("../map.js")
+
+let size = require("../../config.json").graphSize
+size = {...size, minX: 40, minY: 20}
+
 size.maxX = size.width - 20
 size.maxY = size.height - 20
 
@@ -20,23 +17,7 @@ async function draw(array) {
 
     let img = Canvas.createCanvas(size.width, size.height);
     let ctx = img.getContext('2d')
-    let myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: array.map(x => x.key),
-            datasets: [{
-                label: '# of Votes',
-                data: array.map(x => x.value),
-                backgroundColor: [
-                'rgba(255, 99, 132, 0.2)'
-            ],
-                borderColor: [
-                'rgba(255, 99, 132, 1)'
-            ]
-        }]
-        }
-    })
-
+    
     //    let prev = data.shift()
     //    ctx.fillStyle ="#ffffff"
     //    ctx.fillRect(0, 0, size.width, size.height)
