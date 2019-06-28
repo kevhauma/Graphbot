@@ -51,7 +51,8 @@ async function draw(array) {
 }
 
 module.exports = {
-    draw
+    draw,
+    embed= require("./embed.js")
 }
 
 function normalizeData(array, interval) {

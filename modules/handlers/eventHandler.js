@@ -3,7 +3,7 @@ let commandHandler = require("./commandHandler.js")
 let messageHandler = require("./commandHandler.js")
 
 function handleMessage(message, clientID) {
-    if (!message.channel.type !== "text")
+    if (message.channel.type !== "text")
         return // don't do anything in DMs (yet)
         
     messageHandler.handle(message)
@@ -13,15 +13,6 @@ function handleMessage(message, clientID) {
 
     commandHandler.handle(message)
 
-    dr.add(message.guild, "message", {
-        channel: message.channel.id,
-        member: message.author.id
-    })
-
-
-    if (!message.content.startsWith(prefix)) return
-
-    let graphOptions = options.parse(message)
 
 
 }
