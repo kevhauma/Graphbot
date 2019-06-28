@@ -4,9 +4,9 @@ const types = require("../types/StatTypes.js").types
 let dbs = {}
 
 
-
+try{
 loadDatabases()
-
+}catch(e){console.log(e)}
 
 async function get(guild, type) {    
     return await findDB(guild, type)
@@ -16,7 +16,7 @@ module.exports.get = get
 
 function loadDatabases() {
     fs.readdir("./data/", async (err, folders) => {
-        if (err) throw `error loading databases: ${err.mesages}`
+        if (err) throw `error loading databases: ${err}`
         
         for (let guild of folders) {
             for (let type of types) {

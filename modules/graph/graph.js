@@ -1,6 +1,8 @@
 const Canvas = require('canvas')
 const fs = require("fs")
 const map = require("../map.js")
+let embed = require("./embed.js")
+let prepareData = require("./prepareData.js")
 
 let size = require("../../config.json").graphSize
 size = {...size, minX: 40, minY: 20}
@@ -52,7 +54,8 @@ async function draw(array) {
 
 module.exports = {
     draw,
-    embed= require("./embed.js")
+    embed,
+    prepareData
 }
 
 function normalizeData(array, interval) {
