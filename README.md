@@ -34,19 +34,19 @@ get the options for graphs by tagging the bot and mentioning "help"
 available options :
 
 
-| call | description| values | default |
-| :---: |:---:|:---:|:---:|:---:|
-| -data / -d| are neat|    $1 | |
-| -from / -f|  start date in format `YYYY/MM/DD`| any date | first record
-| -to / -t |end date in format `YYYY/MM/DD`|   any date | today |
-| -color -c | change color of graph by hex code|    any color hexcode | `#ff0000`
-| -size / -s | change size (in pixels) of graph in format `width,height`|max: 1500,1000 | 700,300 
-| -base / -b | change base of graph: starts at 0, or use min and max values| zero, relative | relative |
-| -group / -g | group data points, max 100 points | hours, weeks, months, number  | 40 |
-| -type | bar or line graph| bar, line | line |
-| -compare | data over time, or compare|time, hours-day, days-week , days-month | time |
-| users | tag users to see their relevant data |   any user(s) | @everyone |
-| channels | tag a channel to see the relevant data|    any channel(s) | whole server |
+| call          | description                                                   | values                                    | default       |
+| :-----------: | :-----------------------------------------------------------: | :---------------------------------------: | :-----------: |
+| -data / -d    | which data to graph                                           | **see above**                             | messages      |
+| -from / -f    |  start date in format `YYYY/MM/DD`                            | any date                                  | first record  |
+| -to / -t      | end date in format `YYYY/MM/DD`                               | any date                                  | today         |
+| -color -c     | change color of graph by hex code                             | any color hexcode                         | `#ff0000`     |
+| -size / -s    | change size (in pixels) of graph in format `width,height`     | max: 1500,1000                            | 700,300       |
+| -base / -b    | change base of graph: starts at 0, or use min and max values  | zero, relative                            | relative      |
+| -group / -g   | group data points, max 100 points                             | hours, weeks, months, number              | 40            |
+| -type         | bar or line graph                                             | bar, line                                 | line          |
+| -compare      | data over time, or compare                                    | time, hours-day, days-week , days-month   | time          |
+| users         | tag users to see their relevant data                          | any user(s)                               | @everyone     |
+| channels      | tag a channel to see the relevant data                        | any channel(s)                            | whole server  |
 
 ### Example
 
