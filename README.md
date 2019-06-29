@@ -35,7 +35,7 @@ available options :
 
 
 | call | description| values | default |
-| :--: |:--:|:--:|:---:|:--:|
+| :---: |:---:|:---:|:---:|:---:|
 | -data / -d| are neat|    $1 | |
 | -from / -f|  start date in format `YYYY/MM/DD`| any date | first record
 | -to / -t |end date in format `YYYY/MM/DD`|   any date | today |
